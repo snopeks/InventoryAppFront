@@ -3,9 +3,12 @@ import $ from 'jquery-ajax';
 import { Route, Link, Redirect, Switch } from 'react-router-dom';
 import Home from './Home';
 import About from './About';
+import Signup from './Signup';
+import Login from './Login';
 import Profile from './Profile';
 import Footer from './Footer';
 import Header from './Header';
+import ErrorPage from './Error';
 
 class App extends Component {
   constructor(props){
@@ -15,6 +18,8 @@ class App extends Component {
     };
     console.log(this.state.path)
     console.log("STATE: ", this.state.id , this.state.isAuthenticated);
+    this.handleSignupSubmit = this.handleSignupSubmit.bind(this);
+
 
   }
   handleLoginSubmit(username, password, e){
@@ -33,9 +38,11 @@ class App extends Component {
     .then(res => {
       console.log('res is ', res);
       this.setState({isAuthenticated: true});
+      this.props.browserHistory.push('/profile');
     }, err => {
       console.log("we hit an error with login!")
       console.log(err);
+      this.props.browserHistory.push('/error')
     });
   }
   handleSignupSubmit(username, password, e){
@@ -47,7 +54,7 @@ class App extends Component {
     //try bootstrap validator
     $.ajax({
       method: 'POST',
-      url: `http://localhost:3001/signup`,
+      url: `localhost:3001/signup`,
       data: {
         username: username,
         password: password
@@ -77,11 +84,14 @@ class App extends Component {
                 isAuthed={this.state.isAuthenticated}
                 logout={this.handleLogout.bind(this)}
               />
-              <main>
+              <main className="container">
               <Switch>
                 <Route exact path="/" component={Home} />
                 <Route path='/about' component={About} />
+                <Route path='/signup' render={() => <Signup signup={this.handleSignupSubmit}/> }/>
+                <Route path='/login' component={Login}/>
                 <Route path='/profile' component={Profile} />
+                <Route path='/error' component={ErrorPage} />
               </Switch>
               </main>
               <Footer />

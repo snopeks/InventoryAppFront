@@ -6,7 +6,7 @@ class Footer extends Component{
     return(
       <div>
         <footer className="text-center">
-          <p id="appName">KYS</p>
+          <p id="appName">KnowYourStuff</p>
           <p id="createdBy">Created by Stephanie and Steve</p>
         </footer>
       </div>
