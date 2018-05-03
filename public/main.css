@@ -1,9 +1,29 @@
-main{
-  height: 20em;
 
-  text-align: center;
+main{
+  height: auto;
 }
 
-h1{
-  text-align: center;
+#appName{
+  font-size: 2em;
+}
+.about{
+  align-items: center;
+  height: 300px;
+}
+.text{
+  width: 50%;
+  margin: auto;
+  padding: 1em;
+}
+
+footer{
+  padding: 2em;
+  background: grey;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+button{
+  padding: 0.5em;
+  margin-right: 1em;
 }
