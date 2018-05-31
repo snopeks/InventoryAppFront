@@ -55,6 +55,7 @@ class Profile extends Component{
       households.push(res)
       this.setState({households})
     })
+    e.currentTarget.reset(); 
   }
   render(){
     const houseNames = this.state.households.map(household =>{ 
@@ -76,11 +77,13 @@ class Profile extends Component{
               <ul className="list-group">
               {houseNames}
               </ul>
-              <form className="addHouseForm form-group" onSubmit={this.addHousehold}>
                 <h3>Add Household:</h3>
-                <label>Household name:</label>
-                <input className="form-control" type="text" onChange={this.handleHouseNameChange} name="name" placeholder="household name"></input>
-                <button className="btn btn-light">ADD HOUSEHOLD</button>
+              <form className="addHouseForm" onSubmit={this.addHousehold}>
+                <div className="form-group">
+                  <label>Household name:</label>
+                  <input className="form-control" type="text" onChange={this.handleHouseNameChange} name="name" placeholder="household name"></input>
+                </div>
+                  <button className="btn btn-light">Add Household</button>
               </form>
             </div>
             <div className="col-sm-6 householdDiv">
