@@ -46,8 +46,8 @@ class Signup extends Component{
               <label>Confirm Password</label>
               <input type="password" className="form-control" onChange={this.handlePasswordChange} id="password2" placeholder="Confirm your password" required/>
             </div>
-            <button type="submit">Submit</button>
-            <button><Link to='/'>Cancel</Link></button>
+            <button className="btn btn-primary"type="submit">Submit</button>
+            <button className="btn btn-danger"><Link to='/'>Cancel</Link></button>
           </form>
       </div>
     )
