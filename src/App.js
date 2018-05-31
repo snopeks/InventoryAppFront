@@ -43,7 +43,7 @@ class App extends Component {
     })
     .then(res => {
       console.log('res is ', res);
-      this.setState({isAuthenticated: true, username: res.username, householdArray: res.households});
+      this.setState({isAuthenticated: true, username: res.username, id: res._id, householdArray: res.households});
       this.props.history.push('/profile');
     }, err => {
       console.log("we hit an error with login!")
@@ -96,7 +96,7 @@ class App extends Component {
                 <Route path='/signup' render={() => <Signup signup={this.handleSignupSubmit}/> }/>
                 <Route path='/login' render={() => <Login login={this.handleLoginSubmit}/>}/>
                 <Route path='/profile' render={() => <Profile username={this.state.username} households={this.state.householdArray} isAuthed={this.state.isAuthenticated}/> } />
-                <Route path="/inventory" render={()=> <Inventory />} />
+                <Route path="/inventory" render={()=> <Inventory username={this.state.username} households={this.state.householdArray}/>} />
                 <Route path='/error' component={ErrorPage} />
               </Switch>
               </main>
