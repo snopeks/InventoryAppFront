@@ -1,15 +1,11 @@
 import React, { Component } from 'react'
 
-class Home extends Component {
-  constructor(props){
-    super(props)
-  }
-  render(){
-    return(
+const Home = () => (
       <div>
         <div className="jumbotron jumbotron-fluid">
           <div className="container">
             <h1 className="display-4">Simple, satisfying inventory lists</h1>
+            <hr className="my-4"></hr>
             <p className="lead">Keep track of what you own with ease.</p>
           </div>
         </div>
@@ -35,7 +31,7 @@ class Home extends Component {
               <div className="card-body">
                 <h5 className="card-title">Special title treatment</h5>
                 <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" className="btn btn-primary">Go somewhere</a>
+                <a href="/about" className="btn btn-primary">Learn more!</a>
               </div>
             </div>
           </div>
@@ -50,8 +46,6 @@ class Home extends Component {
           </div>
         </div>
       </div>
-    )
-  }
-}
+)
 
 export default Home

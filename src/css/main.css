@@ -1,0 +1,76 @@
+
+main{
+  min-height: 500px;
+}
+
+#appName{
+  font-size: 1.5em;
+  text-decoration: none; 
+}
+#appName:hover{
+  color: rgb(118, 171, 197); 
+  text-decoration-line: underline;  
+}
+hr{
+  color: black; 
+}
+.homeLink{
+  font-size: 3em; 
+  text-align: center; 
+}
+
+.about{
+  align-items: center;
+  height: 500px;
+}
+.text{
+  width: 50%;
+  margin: auto;
+  padding: 1em;
+}
+h2{
+  text-align: center; 
+}
+h3{
+  text-align: center; 
+  background-color: white; 
+}
+.householdDiv{
+  border: 1px solid black; 
+  height: auto; 
+  background-color: slategray;
+}
+.addHouseForm{
+  display: none; 
+  width: 100%; 
+  height: inherit;  
+  background-color: red; 
+}
+footer{
+  color: black;
+  margin-top: 2em; 
+  padding: 2em;
+  background: grey;
+  position: relative; 
+  width: 100%;
+  height: 200px;
+}
+.appInfo{
+  float: left; 
+}
+.footer-owner{
+  text-decoration: none; 
+  color: white; 
+}
+#footer-list{
+  float: right; 
+}
+.footer-text{
+  color: white; 
+  text-decoration: none; 
+  height: inherit;
+}
+button{
+  padding: 0.5em;
+  margin-right: 1em;
+}

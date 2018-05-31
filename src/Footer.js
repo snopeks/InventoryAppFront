@@ -1,19 +1,25 @@
 import React, { Component } from 'react';
 
 
-class Footer extends Component{
-  render(){
-    return(
+const Footer = () =>(
       <div>
-        <footer className="text-center">
-          <p id="appName">KnowYourStuff</p>
-          <p id="createdBy">Created by Stephanie and Steve</p>
+        <footer>
+          <div className="appInfo">
+            <p>KnowYourStuff</p>
+            <p>Created by <a className="footer-owner" href="https://github.com/snopeks">Stephanie</a> and <a className="footer-owner" href="https://github.com/stevengill">Steve</a></p>
+          </div>
+          <div id="footer-list">
+            <ul className="list-unstyled">
+              <li><a href="/about"><p className="footer-text">About</p></a></li>
+              <li><a href="/contact"><p className="footer-text">Contact Us</p></a></li>
+            </ul>
+          </div>
         </footer>
       </div>
+)
 
-    )
-  }
-}
+
+
 
 
 

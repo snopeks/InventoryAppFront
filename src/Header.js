@@ -1,19 +1,13 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
-import Login from './Login';
-import Signup from './Signup';
-import About from './About';
 
 class Header extends Component {
-  constructor(props){
-    super(props)
-  }
   render(){
-    if(this.props.isAuthed == false){
+    if(!this.props.isAuthed){
     return(
         <div>
           <nav className="navbar navbar-default">
-            <h1><Link to="/">KnowYourStuff</Link></h1>
+            <h1><Link to="/" id="appName">KnowYourStuff</Link></h1>
             <div className="container-fluid">
               <div className="navbar-header">
                 <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -34,7 +28,8 @@ class Header extends Component {
           </nav>
         </div>
       )
-    } else {
+    } else { 
+      return (
       <div>
         <nav className="navbar navbar-default">
           <h1><Link to="/">KnowYourStuff</Link></h1>
@@ -57,7 +52,7 @@ class Header extends Component {
           </div>
         </nav>
       </div>
-    }
+    )}
   }
 }
 

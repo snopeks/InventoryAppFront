@@ -1,17 +1,11 @@
-import React, {Component} from 'react';
+import React from 'react';
 
-class Error extends Component{
-  constructor(props){
-    super(props)
-  }
 
-  render(){
-    return(
-      <div>
-        <h3>Error!</h3>
+const Error = () => (
+      <div className="container">
+        <h3>Error! Uh oh, something went wrong!</h3>
+        <p className="homelink"><a href="/">Take Me Home</a></p>
       </div>
-    )
-  }
-}
+);
 
 export default Error;

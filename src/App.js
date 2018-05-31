@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import $ from 'jquery-ajax';
-import { Route, Link, Redirect, Switch } from 'react-router-dom';
+import { Route, Link, Redirect, Switch, withRouter } from 'react-router-dom';
 import Home from './Home';
 import About from './About';
 import Signup from './Signup';
@@ -9,16 +9,22 @@ import Profile from './Profile';
 import Footer from './Footer';
 import Header from './Header';
 import ErrorPage from './Error';
+import Inventory from './Inventory';
 
 class App extends Component {
   constructor(props){
     super(props)
     this.state={
-      id:'', isAuthenticated: false,
+      username: '',
+      householdArray: [],
+      id:'', 
+      isAuthenticated: false,
     };
     console.log(this.state.path)
     console.log("STATE: ", this.state.id , this.state.isAuthenticated);
     this.handleSignupSubmit = this.handleSignupSubmit.bind(this);
+    this.handleLoginSubmit= this.handleLoginSubmit.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
 
 
   }
@@ -29,7 +35,7 @@ class App extends Component {
     console.log(password)
     $.ajax({
       method: 'POST',
-      url: `http://localhost:3001/login`,
+      url: `http://localhost:3000/login`,
       data: {
         username: username,
         password: password
@@ -37,12 +43,12 @@ class App extends Component {
     })
     .then(res => {
       console.log('res is ', res);
-      this.setState({isAuthenticated: true});
-      this.props.browserHistory.push('/profile');
+      this.setState({isAuthenticated: true, username: res.username, householdArray: res.households});
+      this.props.history.push('/profile');
     }, err => {
       console.log("we hit an error with login!")
       console.log(err);
-      this.props.browserHistory.push('/error')
+      this.props.history.push('/error')
     });
   }
   handleSignupSubmit(username, password, e){
@@ -62,8 +68,9 @@ class App extends Component {
     })
     .then(res => {
       console.log('res is ', res);
-      this.setState({isAuthenticated: true});
-      this.props.browserHistory.push('/profile');
+      console.log("this is username", res.username)
+      this.setState({isAuthenticated: true, username: res.username});
+      this.props.history.push('/profile');
     }, err => {
       console.log("we hit an error with signup!")
       console.log(err);
@@ -79,18 +86,17 @@ class App extends Component {
         return (
           <div>
               <Header
-                login={this.handleLoginSubmit.bind(this)}
-                signup={this.handleSignupSubmit.bind(this)}
                 isAuthed={this.state.isAuthenticated}
-                logout={this.handleLogout.bind(this)}
+                logout={this.handleLogout}
               />
               <main className="container">
               <Switch>
                 <Route exact path="/" component={Home} />
                 <Route path='/about' component={About} />
                 <Route path='/signup' render={() => <Signup signup={this.handleSignupSubmit}/> }/>
-                <Route path='/login' component={Login}/>
-                <Route path='/profile' component={Profile} />
+                <Route path='/login' render={() => <Login login={this.handleLoginSubmit}/>}/>
+                <Route path='/profile' render={() => <Profile username={this.state.username} households={this.state.householdArray} isAuthed={this.state.isAuthenticated}/> } />
+                <Route path="/inventory" render={()=> <Inventory />} />
                 <Route path='/error' component={ErrorPage} />
               </Switch>
               </main>
@@ -101,7 +107,7 @@ class App extends Component {
     }
   }
 
-export default App;
+export default withRouter(App);
 
 
 
