@@ -41,10 +41,7 @@ h3{
   background-color: slategray;
 }
 .addHouseForm{
-  display: none; 
-  width: 100%; 
-  height: inherit;  
-  background-color: red; 
+  padding: 2% 0;
 }
 footer{
   color: black;
@@ -58,9 +55,23 @@ footer{
 .appInfo{
   float: left; 
 }
+
+.selected{
+  background-color: red; 
+  height: inherit; 
+}
+#item-list{
+  min-height: 300px; 
+}
+label{
+  color: white; 
+}
 .footer-owner{
   text-decoration: none; 
   color: white; 
+}
+#addItemForm{
+  padding: 2%; 
 }
 #footer-list{
   float: right; 
@@ -71,6 +82,8 @@ footer{
   height: inherit;
 }
 button{
-  padding: 0.5em;
+  padding: 5em;
+  height: inherit; 
   margin-right: 1em;
+  margin-bottom: 4em; 
 }
