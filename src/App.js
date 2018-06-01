@@ -16,23 +16,22 @@ class App extends Component {
     super(props)
     this.state={
       username: '',
-      householdArray: [],
       id:'', 
       isAuthenticated: false,
+      households: []
     };
-    console.log(this.state.path)
-    console.log("STATE: ", this.state.id , this.state.isAuthenticated);
+    console.log("isAuthed?", this.state.isAuthenticated)
     this.handleSignupSubmit = this.handleSignupSubmit.bind(this);
     this.handleLoginSubmit= this.handleLoginSubmit.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
-
-
+    this.getHouseholds = this.getHouseholds.bind(this);
   }
+
+//I want to make two ajax requests: 1st to login and 
+//2nd to get all the populated data from the user and store in state
   handleLoginSubmit(username, password, e){
     e.preventDefault();
     console.log("handling login submit")
-    console.log(username)
-    console.log(password)
     $.ajax({
       method: 'POST',
       url: `http://localhost:3000/login`,
@@ -43,10 +42,10 @@ class App extends Component {
     })
     .then(res => {
       console.log('res is ', res);
-      this.setState({isAuthenticated: true, username: res.username, id: res._id, householdArray: res.households});
+      this.setState({isAuthenticated: true, username: res.username, id: res._id})
       this.props.history.push('/profile');
     }, err => {
-      console.log("we hit an error with login!")
+      console.log("we hit an error sending the last data??")
       console.log(err);
       this.props.history.push('/error')
     });
@@ -60,7 +59,7 @@ class App extends Component {
     //try bootstrap validator
     $.ajax({
       method: 'POST',
-      url: `localhost:3001/signup`,
+      url: `https://localhost:3000/signup`,
       data: {
         username: username,
         password: password
@@ -77,12 +76,16 @@ class App extends Component {
     });
   }
   handleLogout(){
+    //need to work on this function
     console.log("logging out!");
     this.setState({isAuthenticated: false})
+    // this.props.history.push('/')
   }
-
+  getHouseholds = (households) => {
+    console.log(households)
+    this.setState({ households})
+  }
     render() {
-      console.log("IS AUTHED in layout", this.state.isAuthenticated)
         return (
           <div>
               <Header
@@ -95,8 +98,8 @@ class App extends Component {
                 <Route path='/about' component={About} />
                 <Route path='/signup' render={() => <Signup signup={this.handleSignupSubmit}/> }/>
                 <Route path='/login' render={() => <Login login={this.handleLoginSubmit}/>}/>
-                <Route path='/profile' render={() => <Profile username={this.state.username} households={this.state.householdArray} isAuthed={this.state.isAuthenticated}/> } />
-                <Route path="/inventory" render={()=> <Inventory username={this.state.username} households={this.state.householdArray}/>} />
+                <Route path='/profile' render={() => <Profile households={this.state.households} getHouseholds={this.getHouseholds} username={this.state.username} isAuthed={this.state.isAuthenticated}/> } />
+                <Route path="/inventory" render={()=> <Inventory households={this.state.households} username={this.state.username}/>} />
                 <Route path='/error' component={ErrorPage} />
               </Switch>
               </main>
@@ -108,7 +111,3 @@ class App extends Component {
   }
 
 export default withRouter(App);
-
-
-
-//

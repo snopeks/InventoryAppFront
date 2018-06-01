@@ -4,7 +4,7 @@ import $ from 'jquery-ajax';
 class Profile extends Component{
   state = {
     newHouseName: '',
-    households: []
+
   }
   handleHouseNameChange = (e) =>{
     console.log('setting the house name!')
@@ -12,33 +12,29 @@ class Profile extends Component{
   }
   componentWillMount = () => {
     console.log('mounting profile page!')
-    if(this.props.username){
+    console.log("length of households", this.props.households.length)
+    if(this.props.isAuthed && this.props.households.length === 0){
       $.ajax({
         method: 'GET',
         url: `http://localhost:3000/api/users/${this.props.username}`,
       })
       .then(res => {
           console.log('returned user', res)
-          this.setState({households: res[0].households})
+          // this.setState({households: res[0].households})
+          this.props.getHouseholds(res[0].households)
       })
     } else {
-      console.log('login to get a user back')
+      console.log('login please')
+      console.log("isAuthed", this.props.isAuthed)
+      console.log("this.props.households", this.props.households)
+
+
     }
   }
-  // componentDidUpdate = () => {
-  //   console.log('it updated!')
-  //   $.ajax({
-  //     method: "GET",
-  //     url:`http://localhost:3000/api/users/${this.props.username}`
-  //   })
-  //   .then(res => {
-  //     console.log(`updated user:`, res)
-  //     this.setState({households: res.households})
-  //   })
-  // }
 
   addHousehold = (e) => {
     e.preventDefault();
+
     console.log('adding house!')
     $.ajax({
       method: "POST",
@@ -50,18 +46,19 @@ class Profile extends Component{
     })
     .then(res => {
       console.log('here is the returned house', res)
-      //take a copy of state to add the new house to state
-      const households = this.state.households;
-      households.push(res)
-      this.setState({households})
+      //take a copy of current app household state
+      const households = this.props.households;
+      //add new house to copy of app state
+      households.push({_id: res._id, name: res.name})
+      //run function to add new house to app state
+      this.props.getHouseholds(households)
     })
     e.currentTarget.reset(); 
   }
   render(){
-    const houseNames = this.state.households.map(household =>{ 
+    const houseNames = this.props.households.map(household =>{ 
       return <li key={household.name}className="list-group-item"><p>{household.name}</p></li>
     })
-    console.log(houseNames)
     if(!this.props.isAuthed){
     return(
       <div>
@@ -88,6 +85,13 @@ class Profile extends Component{
             </div>
             <div className="col-sm-6 householdDiv">
               <h3>Inventory QuickView</h3>
+              <form className="addHouseForm">
+                <div className="form-group">
+                  <label>New Item:</label>
+                  <input type="text"className="form-control" placeholder="new item "></input>
+                </div>
+                <button className="btn btn-dark">Add Item</button>
+              </form>
             </div>
           </div>
         </div>
